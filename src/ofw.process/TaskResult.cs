@@ -4,7 +4,7 @@ namespace ofw.process
 {
     public class TaskResult<T> where T : CoreObject
     {
-        public TaskResult(ResultStatus status, T? value, TaskProcess? next = null, string? message = null)
+        public TaskResult(ResultStatus status, T? value = default, TaskProcess? next = null, string? message = null)
         {
             Status = status;
             Value = value;

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ofw.core;
 
 namespace Demo.Core
 {
-    public class Payment
+    public class Payment : CoreObject
     {
+        public decimal Amount { get; set; }
+
+        public override string Title => Amount.ToString();
     }
 }

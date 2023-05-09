@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.Process.Order
+namespace ofw.core
 {
-    public class PayOrder
+    public enum ObjectState
     {
+        New,
+        Changed,
+        Unchanged
     }
 }

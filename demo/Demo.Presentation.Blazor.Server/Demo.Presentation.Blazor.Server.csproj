@@ -23,6 +23,7 @@
     <ProjectReference Include="..\Demo.Presentation.Blazor.Client\Demo.Presentation.Blazor.Client.csproj" />
     <ProjectReference Include="..\Demo.Presentation.Shared\Demo.Presentation.Shared.csproj" />
     <ProjectReference Include="..\Demo.Process.Contract\Demo.Process.Contract.csproj" />
+    <ProjectReference Include="..\Demo.Services.Validation\Demo.Services.Validation.csproj" />
   </ItemGroup>
 
 </Project>

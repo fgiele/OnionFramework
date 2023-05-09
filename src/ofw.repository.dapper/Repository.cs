@@ -12,7 +12,14 @@ namespace ofw.repository.dapper
         private readonly IMapper<C, D> _mapper;
         private readonly string _tableName;
 
-        public async Task<C> Create(C coreObject)
+        protected Repository(IDbConnection connection, IMapper<C, D> mapper, string tableName)
+        {
+            _connection = connection;
+            _mapper = mapper;
+            _tableName = tableName;
+        }
+
+        public async Task<C> CreateAsync(C coreObject)
         {
             var dataObject = await _mapper.MapToDataAsync(coreObject);
 
@@ -20,7 +27,7 @@ namespace ofw.repository.dapper
 
             if (executeCount == 1)
             {
-                return await GetById(coreObject.Id);
+                return await GetByIdAsync(coreObject.Id);
             }
             else
             {
@@ -29,7 +36,7 @@ namespace ofw.repository.dapper
             }
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var deleteCommand = $"DELETE FROM {_tableName} WHERE Id = @Id";
             var executeCount = await _connection.ExecuteAsync(deleteCommand, new[] { id.ToString() });
@@ -41,7 +48,7 @@ namespace ofw.repository.dapper
             }
         }
 
-        public async Task Delete(C coreObject)
+        public async Task DeleteAsync(C coreObject)
         {
             var dataobject = await _mapper.MapToDataAsync(coreObject);
 
@@ -55,25 +62,26 @@ namespace ofw.repository.dapper
             }
         }
 
-        public async Task<IReadOnlyList<C>> Find(S searchObject)
+        public async Task<IReadOnlyList<C>> FindAsync(S searchObject)
         {
             var coreObjects = await MapListAsync(await _connection.QueryAsync<D>(MakeQuery(), new[] { searchObject }));
             return coreObjects;
         }
 
-        public async Task<IReadOnlyList<C>> GetAll()
+        public async Task<IReadOnlyList<C>> GetAllAsync()
         {
             var coreObjects = await MapListAsync(await _connection.QueryAsync<D>($"SELECT * FROM {_tableName}"));
             return coreObjects;
         }
 
-        public async Task<C> GetById(Guid id)
+        public async Task<C> GetByIdAsync(Guid id)
         {
             var coreObject = await _mapper.MapToCoreAsync(await _connection.QueryFirstOrDefaultAsync<D>($"SELECT * FROM {_tableName} WHERE Id = @Id", new[] { id }));
+            
             return coreObject;
         }
 
-        public async Task<C> Update(C coreObject)
+        public async Task<C> UpdateAsync(C coreObject)
         {
             var original = await _connection.QueryFirstOrDefaultAsync<D>($"SELECT * FROM {_tableName} WHERE Id = @Id", new[] { coreObject.Id });
             var dataObject = await _mapper.MapToDataAsync(coreObject, original);
@@ -82,7 +90,7 @@ namespace ofw.repository.dapper
 
             if (executeCount == 1)
             {
-                return await GetById(coreObject.Id);
+                return await GetByIdAsync(coreObject.Id);
             }
             else
             {

@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ofw.process\ofw.process.csproj" />
     <ProjectReference Include="..\Demo.Core\Demo.Core.csproj" />
-    <ProjectReference Include="..\Demo.Process.Contract\Demo.Process.Contract.csproj" />
-    <ProjectReference Include="..\Demo.Repository.Contract\Demo.Repository.Contract.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace Demo.Process.LineItem
+using Demo.Core;
+namespace Demo.Process
 {
-    public class ManageLineItem
+    public class ManageOrder
     {
     }
 }

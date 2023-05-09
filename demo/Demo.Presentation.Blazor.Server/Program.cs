@@ -1,13 +1,14 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Identity.Web;
+using Demo.Core;
+using Demo.Services.Validation;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+builder.Services.AddScoped<IValidator<Basket>, BasketValidator>();
+
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

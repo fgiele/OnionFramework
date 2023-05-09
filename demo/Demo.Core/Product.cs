@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ofw.core;
 
 namespace Demo.Core
 {
-    public class Product
+    public class Product : CoreObject
     {
+        public string Name { get; set; }
+
+        public override string Title => Name;
+
+        public Product(string name)
+        {
+            Name = name;
+        }
     }
 }
